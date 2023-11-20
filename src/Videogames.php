@@ -2,24 +2,23 @@
 
 readonly class Videogames
 {
-    // Creating properties to contain the data for a product
-    // matching them up with the columns in the products table
     public string $name;
     public int $id;
     public int $release_year;
     public int $platform_id;
+    public string $platform_name;
 
-    // The constructor allows us to pass the data in when we instantiate a new Product
-    // using new Product()
     public function __construct(
         string $name,
-        int $id, 
+        int $id,
         int $release_year,
-        int $platform_id
+        int $platform_id,
+        string $platform_name
     ) {
         $this->name = $name;
         $this->id = $id;
         $this->release_year = $release_year;
         $this->platform_id = $platform_id;
+        $this->platform_name = $platform_name;
     }
 }

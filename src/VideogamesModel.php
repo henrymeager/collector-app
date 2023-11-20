@@ -29,33 +29,55 @@ class VideogamesModel
             $videogames['name'], 
             $videogames['id'], 
             $videogames['release_year'],
-            $videogames['platform_id']
+            $videogames['platform_id'],
+            $videogames['platform_name']
         );
         return $videogameObj;
     }
 
+    // public function getAllVideogames()
+    // {
+    //     $query = $this->db->prepare('SELECT * FROM `videogames`;');
+    //     $query->execute();
+    //     $videogames = $query->fetchAll();
+
+    //     $videogameObj = []; // Create a new empty array to contain
+    //     // our Product objects
+    //     foreach ($videogames as $videogame) {
+    //         // For each product in the result, create a Product object
+    //         // and put it into array
+    //         $videogameObj[] = new Videogames(
+    //             $videogame['name'], 
+    //             $videogame['id'], 
+    //             $videogame['release_year'],
+    //             $videogame['platform_id']
+    //         );
+    //     }
+    //     // Return the array of Product objects
+    //     return $videogameObj;
+    // }
+
     public function getAllVideogames()
-    {
-        $query = $this->db->prepare('SELECT * FROM `videogames`;');
-        $query->execute();
-        $videogames = $query->fetchAll();
+{
+    $query = $this->db->prepare('SELECT videogames.*, platforms.name AS platform_name FROM `videogames`
+                                LEFT JOIN `platforms` ON videogames.platform_id = platforms.id;');
+    $query->execute();
+    $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
-        $videogameObj = []; // Create a new empty array to contain
-        // our Product objects
-        foreach ($videogames as $videogame) {
-            // For each product in the result, create a Product object
-            // and put it into array
-            $videogameObj[] = new Videogames(
-                $videogame['name'], 
-                $videogame['id'], 
-                $videogame['release_year'],
-                $videogame['platform_id']
-            );
-        }
-        // Return the array of Product objects
-        return $videogameObj;
+    $videogameObj = [];
+
+    foreach ($result as $row) {
+        $videogameObj[] = new Videogames(
+            $row['name'],
+            $row['id'],
+            $row['release_year'],
+            $row['platform_id'],
+            $row['platform_name']
+        );
     }
-
+    return $videogameObj;
+}
+    
     public function getVideogamesByPlatform(int $platorm_id)
     {
         $query = $this->db->prepare(
