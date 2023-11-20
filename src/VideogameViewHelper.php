@@ -21,11 +21,11 @@ class VideogamesViewHelper
         $output = '';
 
         foreach ($videogames as $videogame) {
-            echo '<div class="grid-item">';
-            echo '<h3>' . $videogame->name . '</h3>';
-            echo '<p>Release Year: ' . $videogame->release_year . '</p>';
-            echo '<p>Platform: ' . $videogame->platform_name . '</p>';
-            echo '</div>';
+            $output .= '<div class="grid-item">';
+            $output .= '<h3>' . $videogame->name . '</h3>';
+            $output .= '<p>Release Year: ' . $videogame->release_year . '</p>';
+            $output .= '<p>Platform: ' . $videogame->platform_name . '</p>';
+            $output .= '</div>';
         }
 
         return $output;
