@@ -43,4 +43,17 @@ class VideogamesModel
         $videogame = $query->fetchAll();
         return $videogame;
     }
+
+    function addVideogame($db, $name, $id, $release_year, $platform_id, $platform_name)
+    {
+        $videogameInsertQuery = $db->prepare("INSERT INTO `videogames`(name, id, release_year, platform_id, platform_name)
+         VALUES (:name, :id, :release_year, :platform_id, :platform_name)");
+        $videogameInsertQuery->bindParam(':name', $name);
+        $videogameInsertQuery->bindParam(':id', $id);
+        $videogameInsertQuery->bindParam(':release_year', $release_year);
+        $videogameInsertQuery->bindParam(':platform_id', $platform_id);
+        $videogameInsertQuery->bindParam(':platform_name', $platform_name);
+
+        return $videogameInsertQuery->execute();
+    }
 }
