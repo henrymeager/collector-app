@@ -2,7 +2,7 @@
 
 use PHPUnit\Framework\TestCase;
 
-class Tests extends TestCase
+class VideogamesViewHelperTest extends TestCase
 {
     public function testDisplayAllVideogames()
     {
@@ -13,17 +13,19 @@ class Tests extends TestCase
 
         $output = VideogamesViewHelper::displayAllVideogames($videogames);
 
-        $expectedOutput = '<div class="grid-item">
+        $expectedOutput =
+        '<div class="grid-item">
         <h3>Game 1</h3>
         <p>Release Year: 2007</p>
-        <p>Platform: Platform 1</p>
+        <p>Platform: PC</p>
+        </div>
         
-        </div><div class="grid-item">
+        <div class="grid-item">
         <h3>Game 2</h3>
         <p>Release Year: 1390</p>
-        <p>Platform: Platform 2</p></div>';
+        <p>Platform: PS3</p>
+        </div>';
 
         $this->assertEquals($expectedOutput, $output);
     }
-    
 }
