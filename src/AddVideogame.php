@@ -5,10 +5,14 @@ require_once 'VideogameModel.php';
 $db = new PDO('mysql:host=db; dbname=project', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
+$platformQuery = $db->query("SELECT `id`, `name` FROM platforms");
+
+$platforms = $platformQuery->fetchAll();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $release_year = $_POST['release_year'];
-    $platform_id = $_POST['platform_id'];
+    $platform_id = (int)$_POST['platform_id'];
 
     $videogameModel = new VideogamesModel($db);
     $result = $videogameModel->addVideogame($name, $release_year, $platform_id);
@@ -16,8 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($result) {
         header('Location: ../index.php');
         exit();
-    } else {
-        echo $error_message = 'Failed to add the videogame. Please try again.';
     }
 }
 ?>
@@ -42,8 +44,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="release_year">Release Year:</label>
         <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="Please enter a valid year">
 
-        <label for="platform_id">Platform ID:</label>
-        <input type="text" id="platform_id" name="platform_id" required pattern="[1-6]" title="Please enter a valid platform ID">
+        <label for="platform_id">Platform:</label>
+        <select id="platform_id" name="platform_id" required>
+            <?php
+            foreach ($platforms as $platform) {
+                echo "<option value=\"{$platform['id']}\">{$platform['name']}</option>";
+            }
+            ?>
+        </select>
 
         <button type="submit">Add Videogame</button>
     </form>

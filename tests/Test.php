@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/VideogameViewHelper.php';
+require_once 'src/VideogameModel.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -31,5 +32,5 @@ class Test extends TestCase
         $expectedOutput = '<div class="grid-item"><h3>Game 1</h3><p>Release Year: 2007</p><p>Platform: PC</p></div><div class="grid-item"><h3>Game 2</h3><p>Release Year: 1390</p><p>Platform: PS3</p></div>';
 
         $this->assertEquals($expectedOutput, $output);
-    }
+    }  
 }
