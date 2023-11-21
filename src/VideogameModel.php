@@ -44,7 +44,7 @@ class VideogamesModel
         return $videogame;
     }
 
-    public function addVideogame(string $name, int $release_year = null, int $platform_id = null)
+    public function addVideogame(string $name, int $release_year = null, int $platform_id = null): bool
     {
         $videogameInsertQuery = $this->db->prepare("INSERT INTO `videogames`(name, release_year, platform_id)
              VALUES (:name, :release_year, :platform_id)");
