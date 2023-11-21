@@ -2,6 +2,7 @@
 
 require_once 'src/VideogameViewHelper.php';
 require_once 'src/VideogameModel.php';
+require_once 'src/PlatformsViewHelper.php';
 
 use PHPUnit\Framework\TestCase;
 
@@ -33,4 +34,22 @@ class Test extends TestCase
 
         $this->assertEquals($expectedOutput, $output);
     }  
+
+    public function testGeneratePlatformOptions()
+    {
+        $platforms = [
+            ['id' => 1, 'name' => 'Platform 1'],
+            ['id' => 2, 'name' => 'Platform 2'],
+            ['id' => 3, 'name' => 'Platform 3'],
+        ];
+
+        $options = PlatformsViewHelper::generatePlatformOptions($platforms);
+
+        $expectedOptions =
+            "<option value=\"1\">Platform 1</option>" .
+            "<option value=\"2\">Platform 2</option>" .
+            "<option value=\"3\">Platform 3</option>";
+
+        $this->assertEquals($expectedOptions, $options);
+    }
 }
