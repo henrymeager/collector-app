@@ -16,17 +16,20 @@ class VideogamesViewHelper
     }
 
     public static function displayAllVideogames(array $videogames): string
-    {
-        $output = '';
+{
+    $output = '';
 
-        foreach ($videogames as $videogame) {
+    foreach ($videogames as $videogame) {
+        if ($videogame->is_deleted == 0) {
             $output .= '<div class="grid-item">';
             $output .= '<h3>' . $videogame->name . '</h3>';
             $output .= '<p>Release Year: ' . $videogame->release_year . '</p>';
             $output .= '<p>Platform: ' . $videogame->platform_name . '</p>';
             $output .= '</div>';
         }
-
-        return $output;
     }
+
+    return $output;
+}
+
 }
