@@ -1,27 +1,30 @@
 <?php
 
 require_once 'VideogameModel.php';
+require_once 'PlatformsModel.php';
+require_once 'PlatformsViewHelper.php';
 
 $db = new PDO('mysql:host=db; dbname=project', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-$platformQuery = $db->query("SELECT `id`, `name` FROM platforms");
-
-$platforms = $platformQuery->fetchAll();
+$platformModel = new PlatformsModel($db);
+$platforms = $platformModel->getAllPlatforms();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $release_year = $_POST['release_year'];
     $platform_id = (int)$_POST['platform_id'];
 
-    $videogameModel = new VideogamesModel($db);
-    $result = $videogameModel->addVideogame($name, $release_year, $platform_id);
-
-    if ($result) {
-        header('Location: ../index.php');
+    if (!is_numeric($release_year) || strlen($release_year) !== 4) {
+        echo "Invalid release year. ";
         exit();
     }
+
+    $videogameModel = new VideogamesModel($db);
+
+    $result = $videogameModel->addVideogame($name, $release_year, $platform_id);
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,9 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="platform_id">Platform:</label>
         <select id="platform_id" name="platform_id" required>
             <?php
-            foreach ($platforms as $platform) {
-                echo "<option value=\"{$platform['id']}\">{$platform['name']}</option>";
-            }
+            echo PlatformsViewHelper::generatePlatformOptions($platforms);
             ?>
         </select>
 
