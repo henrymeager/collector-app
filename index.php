@@ -8,7 +8,16 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 $videogamesModel = new VideogamesModel($db);
 
-$videogames = $videogamesModel->getAllVideogames();
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_button'])) {
+    if (isset($_POST['videogame_id'])) {
+        $videogame_id = (int)$_POST['videogame_id'];
+
+        $stmt = $db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
+        $stmt->execute([$videogame_id]);
+    }
+}
+
+$allVideogames = $videogamesModel->getAllVideogames();
 
 ?>
 
@@ -33,7 +42,6 @@ $videogames = $videogamesModel->getAllVideogames();
 
     <div class="grid-container">
         <?php
-        $allVideogames = $videogamesModel->getAllVideogames();
         echo VideogamesViewHelper::displayAllVideogames($allVideogames);
         ?>
     </div>

@@ -14,7 +14,8 @@ class VideogamesModel
     public function getAllVideogames(): array
     {
         $query = $this->db->prepare('SELECT videogames.*, platforms.name AS platform_name FROM videogames
-                                LEFT JOIN platforms ON videogames.platform_id = platforms.id;');
+                                LEFT JOIN platforms ON videogames.platform_id = platforms.id
+                                WHERE videogames.is_deleted = 0;');
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -29,8 +30,10 @@ class VideogamesModel
                 $row['platform_name']
             );
         }
+
         return $videogameObj;
     }
+
 
     public function getVideogamesByPlatform(int $platform_id)
     {
@@ -56,5 +59,3 @@ class VideogamesModel
         return $videogameInsertQuery->execute();
     }
 }
-
-?>
