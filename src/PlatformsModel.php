@@ -11,7 +11,7 @@ class PlatformsModel
         $this->db = $db;
     }
 
-    public function getAllPlatforms()
+    public function getAllPlatforms(): array
     {
         $platformQuery = $this->db->query("SELECT `id`, `name` FROM platforms");
         $platforms = $platformQuery->fetchAll(PDO::FETCH_ASSOC);
