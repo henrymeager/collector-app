@@ -1,10 +1,8 @@
 <?php
 
-// Assuming you have a database connection established earlier
 $db = new PDO('mysql:host=db; dbname=project', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
-// Function to get game data by ID
 function getGameDataById($db, $game_id) {
     $query = "SELECT * FROM videogames WHERE id = :id";
     $stmt = $db->prepare($query);
@@ -13,7 +11,6 @@ function getGameDataById($db, $game_id) {
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// Function to update game data
 function updateGameData($db, $game_id, $title, $description) {
     $query = "UPDATE videogames SET title = :title, description = :description WHERE id = :id";
     $stmt = $db->prepare($query);
@@ -24,18 +21,15 @@ function updateGameData($db, $game_id, $title, $description) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Handle form submission
     $game_id = $_POST['id'];
     $title = $_POST['title'];
     $description = $_POST['description'];
 
     updateGameData($db, $game_id, $title, $description);
 
-    // Redirect to a relevant page
-    header("Location: index.php"); // Change to the actual page you want to redirect to
+    header("Location: index.php");
     exit();
 } elseif (isset($_GET['id'])) {
-    // Display the form for editing
     $game_id = $_GET['id'];
     $gameData = getGameDataById($db, $game_id);
 
