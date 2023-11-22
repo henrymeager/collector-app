@@ -31,7 +31,6 @@ class VideogamesModel
                 $row['platform_name']
             );
         }
-
         return $videogameObj;
     }
 
@@ -60,7 +59,17 @@ class VideogamesModel
         return $videogameInsertQuery->execute();
     }
 
-    public function updateProduct() {
+    public function getVideogameById($id)
+    {
+        $query = "SELECT * FROM videogames WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_OBJ);
+    }
+
+    public function updateVideogame() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $name = $_POST['name'];
             $release_year = $_POST['release_year'];

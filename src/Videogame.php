@@ -1,6 +1,6 @@
 <?php
 
-class Videogame
+readonly class Videogame
 {
     public string $name;
     public int $id;

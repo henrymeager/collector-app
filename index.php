@@ -9,11 +9,11 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $videogamesModel = new VideogamesModel($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_button'])) {
-    if (isset($_POST['videogame_id'])) {
-        $videogame_id = (int)$_POST['videogame_id'];
+    if (isset($_POST['id'])) {
+        $id = (int)$_POST['id'];
 
         $stmt = $db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
-        $stmt->execute([$videogame_id]);
+        $stmt->execute([$id]);
     }
 }
 
@@ -36,7 +36,9 @@ $allVideogames = $videogamesModel->getAllVideogames();
 
     <div class="nav-bar">
         <nav>
-            <a href="AddVideoGame.php">Add new game</a>
+        <a href="index.php">Home</a>
+            <a href="AddVideogame.php">AddGame</a>
+            <a href="DeletedVideogames.php">RestoreGame</a>
         </nav>
     </div>
 
