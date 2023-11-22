@@ -34,6 +34,28 @@ class VideogamesModel
         return $videogameObj;
     }
 
+    public function getAllDeletedVideogames(): array
+    {
+        $query = $this->db->prepare('SELECT videogames.*, platforms.name AS platform_name FROM videogames
+                                LEFT JOIN platforms ON videogames.platform_id = platforms.id
+                                WHERE videogames.is_deleted = 1;');
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $videogameObj = [];
+
+        foreach ($result as $row) {
+            $videogameObj[] = new Videogame(
+                $row['name'],
+                $row['id'],
+                $row['release_year'],
+                $row['platform_id'],
+                $row['platform_name']
+            );
+        }
+        return $videogameObj;
+    }
+
 
     public function getVideogamesByPlatform(int $platform_id)
     {
