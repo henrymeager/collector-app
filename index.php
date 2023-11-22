@@ -36,7 +36,7 @@ $allVideogames = $videogamesModel->getAllVideogames();
 
     <div class="nav-bar">
         <nav>
-            <a href="src/addVideogame.php">Add new game</a>
+            <a href="AddVideoGame.php">Add new game</a>
         </nav>
     </div>
 
