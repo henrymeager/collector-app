@@ -1,3 +1,18 @@
+* {
+    box-sizing: border-box;
+}
+
+.nav-bar {
+    background-color: gray;
+    padding: 2rem;
+    text-decoration: none;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

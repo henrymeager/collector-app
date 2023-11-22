@@ -24,6 +24,13 @@ $videogames = $videogamesModel->getAllVideogames();
 </head>
 
 <body>
+
+    <div class="nav-bar">
+        <nav>
+            <a href="AddVideoGame.php">Add new game</a>
+        </nav>
+    </div>
+
     <div class="grid-container">
         <?php
         $allVideogames = $videogamesModel->getAllVideogames();

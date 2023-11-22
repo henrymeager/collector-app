@@ -1,10 +1,10 @@
 <?php
 
-require_once 'src/Videogame.php';
+require_once 'Videogame.php';
 
 class VideogamesModel
 {
-    public PDO $db;
+    private PDO $db;
 
     public function __construct(PDO $db)
     {
@@ -32,7 +32,7 @@ class VideogamesModel
         return $videogameObj;
     }
 
-    public function getVideogamesByPlatform(int $platorm_id)
+    public function getVideogamesByPlatform(int $platform_id)
     {
         $query = $this->db->prepare(
             'SELECT * FROM `videogames` 
@@ -44,15 +44,14 @@ class VideogamesModel
         return $videogame;
     }
 
-    function addVideogame($db, $name, $id, $release_year, $platform_id, $platform_name)
+    public function addVideogame(string $name, int $release_year = null, int $platform_id = null): bool
     {
-        $videogameInsertQuery = $db->prepare("INSERT INTO `videogames`(name, id, release_year, platform_id, platform_name)
-         VALUES (:name, :id, :release_year, :platform_id, :platform_name)");
+        $videogameInsertQuery = $this->db->prepare("INSERT INTO `videogames`(name, release_year, platform_id)
+             VALUES (:name, :release_year, :platform_id)");
+
         $videogameInsertQuery->bindParam(':name', $name);
-        $videogameInsertQuery->bindParam(':id', $id);
         $videogameInsertQuery->bindParam(':release_year', $release_year);
         $videogameInsertQuery->bindParam(':platform_id', $platform_id);
-        $videogameInsertQuery->bindParam(':platform_name', $platform_name);
 
         return $videogameInsertQuery->execute();
     }
