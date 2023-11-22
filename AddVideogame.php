@@ -1,8 +1,8 @@
 <?php
 
-require_once 'VideogameModel.php';
-require_once 'PlatformsModel.php';
-require_once 'PlatformsViewHelper.php';
+require_once 'src/VideogameModel.php';
+require_once 'src/PlatformsModel.php';
+require_once 'src/PlatformsViewHelper.php';
 
 $db = new PDO('mysql:host=db; dbname=project', 'root', 'password');
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -10,19 +10,25 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 $platformModel = new PlatformsModel($db);
 $platforms = $platformModel->getAllPlatforms();
 
+$errorMessage = "";
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
     $release_year = $_POST['release_year'];
     $platform_id = (int)$_POST['platform_id'];
 
     if (!is_numeric($release_year) || strlen($release_year) !== 4) {
-        echo "Invalid release year. ";
-        exit();
+        $errorMessage = "Invalid release year.";
     }
 
     $videogameModel = new VideogamesModel($db);
 
     $result = $videogameModel->addVideogame($name, $release_year, $platform_id);
+    $indexUrl = 'index.php';
+
+    if ($result) {
+        header("Location: $indexUrl");
+    }
 }
 
 ?>
@@ -45,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
 
         <label for="release_year">Release Year:</label>
-        <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="Please enter a valid year">
+        <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="<?php echo htmlspecialchars($errorMessage); ?>">
 
         <label for="platform_id">Platform:</label>
         <select id="platform_id" name="platform_id" required>

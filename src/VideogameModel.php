@@ -56,5 +56,3 @@ class VideogamesModel
         return $videogameInsertQuery->execute();
     }
 }
-
-?>
