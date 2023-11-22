@@ -68,42 +68,5 @@ class VideogamesModel
 
         return $stmt->fetch(PDO::FETCH_OBJ);
     }
-
-    public function updateVideogame() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $name = $_POST['name'];
-            $release_year = $_POST['release_year'];
-            $platform_name = $_POST['platform_name'];
-    
-            $getAllPlatforms = function() {
-                $platformQuery = $this->db->query("SELECT `id`, `name` FROM platforms");
-                return $platformQuery->fetchAll(PDO::FETCH_ASSOC);
-            };
-    
-            $platformIdQuery = $this->db->prepare("SELECT `id` FROM `platforms` WHERE `name` = :platform_name");
-            $platformIdQuery->bindParam(':platform_name', $platform_name);
-            $platformIdQuery->execute();
-            $platform = $platformIdQuery->fetch(PDO::FETCH_ASSOC);
-    
-            if ($platform) {
-                $platform_id = $platform['id'];
-    
-                $query = $this->db->prepare("UPDATE `videogames` SET `name` = :name, `release_year` = :release_year, `platform_id` = :platform_id");
-                $query->bindParam(':name', $name);
-                $query->bindParam(':release_year', $release_year);
-                $query->bindParam(':platform_id', $platform_id);
-                $query->execute();
-    
-                header("Location: index.php");
-                exit();
-            } else {
-                echo "Error: Platform not found";
-                exit();
-            }
-        } else {
-            header("Location: index.php");
-            exit();
-        }
-    }
     
 }

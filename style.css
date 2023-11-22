@@ -51,7 +51,6 @@ nav {
 .grid-item {
   background-color: #ddd;
   border: 1px solid black;
-  box-shadow: 10px rgba(0, 0, 0, 0.15);
   padding: 10px;
   text-align: center;
   gap: 1rem;
