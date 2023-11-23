@@ -28,7 +28,9 @@ class VideogamesModel
                 $row['id'],
                 $row['release_year'],
                 $row['platform_id'],
-                $row['platform_name']
+                $row['platform_name'],
+                $row['is_deleted'],
+                $row['image_url']
             );
         }
         return $videogameObj;

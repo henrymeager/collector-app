@@ -51,7 +51,7 @@ class VideogamesViewHelper
             $output .= '<p>Release Year: ' . $videogame->release_year . '</p>';
             $output .= '<p>Platform: ' . $videogame->platform_name . '</p>';
 
-            $output .= "<form method='post' action='EditVideogame.php'>";
+            $output .= "<form method='post' action=''>";
             $output .= '<input type="hidden" name="id" value="' . $videogame->id . '">';
             $output .= '<button type="submit" name="edit_button">Edit</button>';
             $output .= '</form>';

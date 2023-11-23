@@ -8,6 +8,7 @@ readonly class Videogame
     public ?int $platform_id;
     public ?string $platform_name;
     public int $is_deleted;
+    public string $image_url;
 
     public function __construct(
         string $name = '',
@@ -15,7 +16,8 @@ readonly class Videogame
         int $release_year = 0,
         ?int $platform_id = null,
         ?string $platform_name = 'N/A',
-        int $is_deleted = 0
+        int $is_deleted = 0,
+        string $image_url = 'https://www.digital-scrapbooking-storage.com/images/brokendisc.jpg'
     ) {
         $this->name = $name;
         $this->id = $id;
@@ -23,5 +25,6 @@ readonly class Videogame
         $this->platform_id = $platform_id;
         $this->platform_name = $platform_name ?? 'N/A';
         $this->is_deleted = $is_deleted;
+        $this->image_url = $image_url ?? 'https://www.digital-scrapbooking-storage.com/images/brokendisc.jpg';
     }
 }

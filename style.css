@@ -49,11 +49,11 @@ nav {
 }
 
 .grid-item {
-  background-color: #ddd;
+  background-image: url('<?php echo $image_url; ?>');
+  background-size: cover;
   border: 1px solid black;
   padding: 10px;
   text-align: center;
-  gap: 1rem;
 }
 
 button {
