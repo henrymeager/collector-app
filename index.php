@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_button'])) {
     if (isset($_POST['id'])) {
         $id = (int)$_POST['id'];
 
-        $stmt = $db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
-        $stmt->execute([$id]);
+        $deleteGame = new VideogamesModel($db);
+        $deleteGame->deleteVideoGame($id);
     }
 }
 

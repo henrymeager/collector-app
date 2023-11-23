@@ -7,6 +7,7 @@
 }
 
 body {
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -49,11 +50,11 @@ nav {
 }
 
 .grid-item {
-  background-image: url('<?php echo $image_url; ?>');
-  background-size: cover;
+  background-color: #ddd;
   border: 1px solid black;
   padding: 10px;
   text-align: center;
+  gap: 1rem;
 }
 
 button {
@@ -74,7 +75,8 @@ button:hover {
   color: white;
 }
 
-form-container {
+.form-container {
+  height: 100px;
   display: flex;
   flex-direction: row;
   justify-content: center;

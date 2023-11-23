@@ -45,13 +45,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
 
-    <div class="nav-bar">
+    <!-- <div class="nav-bar">
         <nav>
             <a href="index.php">Home</a>
             <a href="AddVideogame.php">AddGame</a>
             <a href="DeletedVideogames.php">RestoreGame</a>
         </nav>
-    </div>
+    </div> -->
 
     <div class="form-container">
         <form method="post" action="">

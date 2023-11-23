@@ -12,8 +12,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restore_button'])) {
     if (isset($_POST['id'])) {
         $id = (int)$_POST['id'];
 
-        $stmt = $db->prepare("UPDATE videogames SET is_deleted = 0 WHERE id = ?");
-        $stmt->execute([$id]);
+        $restoreGame = new VideogamesModel($db);
+        $restoreGame->restoreVideoGame($id);
     }
 }
 

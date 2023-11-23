@@ -28,9 +28,7 @@ class VideogamesModel
                 $row['id'],
                 $row['release_year'],
                 $row['platform_id'],
-                $row['platform_name'],
-                $row['is_deleted'],
-                $row['image_url']
+                $row['platform_name']
             );
         }
         return $videogameObj;
@@ -82,4 +80,15 @@ class VideogamesModel
 
         return $videogameInsertQuery->execute();
     }
+
+    public function deleteVideoGame($id) {
+        $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    public function restoreVideoGame($id) {
+        $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+    
 }
