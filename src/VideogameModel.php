@@ -82,15 +82,4 @@ class VideogamesModel
 
         return $videogameInsertQuery->execute();
     }
-
-    public function getVideogameById($id)
-    {
-        $query = "SELECT * FROM videogames WHERE id = :id";
-        $stmt = $this->db->prepare($query);
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-        $stmt->execute();
-
-        return $stmt->fetch(PDO::FETCH_OBJ);
-    }
-    
 }
