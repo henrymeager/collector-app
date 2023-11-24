@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="form-container">
         <form method="post" action="">
             <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required pattern="[A-Za-z0-9\s:]+" title="Please enter a valid name (letters, numbers and spaces only)">
+            <input type="text" id="name" name="name" required pattern="[A-Za-z0-9\s:']+" title="Please enter a valid name (letters, numbers and spaces only)">
 
             <label for="release_year">Release Year:</label>
             <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="<?php echo htmlspecialchars($errorMessage); ?>">
