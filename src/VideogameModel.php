@@ -1,6 +1,7 @@
 <?php
 
 require_once 'Videogame.php';
+require_once 'PlatformsModel.php';
 
 class VideogamesModel
 {
@@ -14,7 +15,8 @@ class VideogamesModel
     public function getAllVideogames(): array
     {
         $query = $this->db->prepare('SELECT videogames.*, platforms.name AS platform_name FROM videogames
-                                LEFT JOIN platforms ON videogames.platform_id = platforms.id;');
+                                LEFT JOIN platforms ON videogames.platform_id = platforms.id
+                                WHERE videogames.is_deleted = 0;');
         $query->execute();
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -31,6 +33,29 @@ class VideogamesModel
         }
         return $videogameObj;
     }
+
+    public function getAllDeletedVideogames(): array
+    {
+        $query = $this->db->prepare('SELECT videogames.*, platforms.name AS platform_name FROM videogames
+                                LEFT JOIN platforms ON videogames.platform_id = platforms.id
+                                WHERE videogames.is_deleted = 1;');
+        $query->execute();
+        $result = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        $videogameObj = [];
+
+        foreach ($result as $row) {
+            $videogameObj[] = new Videogame(
+                $row['name'],
+                $row['id'],
+                $row['release_year'],
+                $row['platform_id'],
+                $row['platform_name']
+            );
+        }
+        return $videogameObj;
+    }
+
 
     public function getVideogamesByPlatform(int $platform_id)
     {
@@ -55,4 +80,15 @@ class VideogamesModel
 
         return $videogameInsertQuery->execute();
     }
+
+    public function deleteVideoGame(int $id) {
+        $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+
+    public function restoreVideoGame(int $id) {
+        $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 0 WHERE id = ?");
+        $stmt->execute([$id]);
+    }
+    
 }

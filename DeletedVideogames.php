@@ -8,16 +8,16 @@ $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
 
 $videogamesModel = new VideogamesModel($db);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_button'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['restore_button'])) {
     if (isset($_POST['id'])) {
         $id = (int)$_POST['id'];
 
-        $deleteGame = new VideogamesModel($db);
-        $deleteGame->deleteVideoGame($id);
+        $restoreGame = new VideogamesModel($db);
+        $restoreGame->restoreVideoGame($id);
     }
 }
 
-$allVideogames = $videogamesModel->getAllVideogames();
+$allVideogames = $videogamesModel->getAllDeletedVideogames();
 
 ?>
 
@@ -44,9 +44,10 @@ $allVideogames = $videogamesModel->getAllVideogames();
 
     <div class="grid-container">
         <?php
-        echo VideogamesViewHelper::displayAllVideogames($allVideogames);
+        echo VideogamesViewHelper::displayAllDeletedVideogames($allVideogames);
         ?>
     </div>
 </body>
 
 </html>
+

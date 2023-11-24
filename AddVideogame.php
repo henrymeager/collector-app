@@ -40,28 +40,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
-    <title>Add Videogame</title>
+    <title>AddGame</title>
 </head>
 
 <body>
-    <h2>Add a new game</h2>
 
-    <form method="post" action="">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required pattern="[A-Za-z\s]+" title="Please enter a valid name (letters and spaces only)">
+    <div class="nav-bar">
+        <nav>
+            <a href="index.php">Home</a>
+            <a href="AddVideogame.php">AddGame</a>
+            <a href="DeletedVideogames.php">RestoreGame</a>
+        </nav>
+    </div>
 
-        <label for="release_year">Release Year:</label>
-        <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="<?php echo htmlspecialchars($errorMessage); ?>">
+    <div class="form-container">
+        <form method="post" action="">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required pattern="[A-Za-z0-9\s:']+" title="Please enter a valid name (letters, numbers and spaces only)">
 
-        <label for="platform_id">Platform:</label>
-        <select id="platform_id" name="platform_id" required>
-            <?php
-            echo PlatformsViewHelper::generatePlatformOptions($platforms);
-            ?>
-        </select>
+            <label for="release_year">Release Year:</label>
+            <input type="text" id="release_year" name="release_year" required pattern="\d{4}" title="<?php echo htmlspecialchars($errorMessage); ?>">
 
-        <button type="submit">Add Videogame</button>
-    </form>
+            <label for="platform_id">Platform:</label>
+            <select id="platform_id" name="platform_id" required>
+                <?php
+                echo PlatformsViewHelper::generatePlatformOptions($platforms);
+                ?>
+            </select>
+
+            <button type="submit">Add Videogame</button>
+        </form>
+    </div>
 
 </body>
 

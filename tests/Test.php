@@ -30,10 +30,10 @@ class Test extends TestCase
 
         $output = VideogamesViewHelper::displayAllVideogames($videogames);
 
-        $expectedOutput = '<div class="grid-item"><h3>Game 1</h3><p>Release Year: 2007</p><p>Platform: PC</p></div><div class="grid-item"><h3>Game 2</h3><p>Release Year: 1390</p><p>Platform: PS3</p></div>';
-
+        $expectedOutput = '<div class="grid-item"><h3>Game 1</h3><p>Release Year: 2007</p><p>Platform: PC</p><form method=\'post\' action=\'\'><input type="hidden" name="id" value="1"><button type="submit" name="edit_button">Edit</button></form><form method=\'post\' action=\'\'><input type="hidden" name="id" value="1"><button type="submit" name="delete_button">Delete</button></form></div><div class="grid-item"><h3>Game 2</h3><p>Release Year: 1390</p><p>Platform: PS3</p><form method=\'post\' action=\'\'><input type="hidden" name="id" value="2"><button type="submit" name="edit_button">Edit</button></form><form method=\'post\' action=\'\'><input type="hidden" name="id" value="2"><button type="submit" name="delete_button">Delete</button></form></div>';
+        
         $this->assertEquals($expectedOutput, $output);
-    }  
+    }
 
     public function testGeneratePlatformOptions()
     {
@@ -51,5 +51,19 @@ class Test extends TestCase
             "<option value=\"3\">Platform 3</option>";
 
         $this->assertEquals($expectedOptions, $options);
+    }
+
+    public function testDisplayAllDeletedVideogames()
+    {
+        $deletedVideogames = [
+            new Videogame('Deleted Game 1', 1, 2007, 1, 'PC'),
+            new Videogame('Deleted Game 2', 2, 1390, 2, 'PS3')
+        ];
+
+        $output = VideogamesViewHelper::displayAllDeletedVideogames($deletedVideogames);
+
+        $expectedOutput = '<div class="grid-item"><h3>Deleted Game 1</h3><p>Release Year: 2007</p><p>Platform: PC</p><form method=\'post\' action=\'\'><input type="hidden" name="id" value="1"><button type="submit" name="edit_button">Edit</button></form><form method=\'post\' action=\'\'><input type="hidden" name="id" value="1"><button type="submit" name="restore_button">Restore</button></form></div><div class="grid-item"><h3>Deleted Game 2</h3><p>Release Year: 1390</p><p>Platform: PS3</p><form method=\'post\' action=\'\'><input type="hidden" name="id" value="2"><button type="submit" name="edit_button">Edit</button></form><form method=\'post\' action=\'\'><input type="hidden" name="id" value="2"><button type="submit" name="restore_button">Restore</button></form></div>';
+
+        $this->assertEquals($expectedOutput, $output);
     }
 }
