@@ -7,6 +7,7 @@
 }
 
 body {
+  background-color: #ddd;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -50,9 +51,10 @@ nav {
 }
 
 .grid-item {
-  background-color: #ddd;
+  background-color: white;
   border: 1px solid black;
   padding: 10px;
+  border-radius: 10px;
   text-align: center;
   gap: 1rem;
 }
@@ -78,7 +80,11 @@ button:hover {
 .form-container {
   height: 100px;
   display: flex;
-  flex-direction: row;
   justify-content: center;
   padding-top: 5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
 }
