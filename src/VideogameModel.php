@@ -81,12 +81,12 @@ class VideogamesModel
         return $videogameInsertQuery->execute();
     }
 
-    public function deleteVideoGame($id) {
+    public function deleteVideoGame(int $id) {
         $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 1 WHERE id = ?");
         $stmt->execute([$id]);
     }
 
-    public function restoreVideoGame($id) {
+    public function restoreVideoGame(int $id) {
         $stmt = $this->db->prepare("UPDATE videogames SET is_deleted = 0 WHERE id = ?");
         $stmt->execute([$id]);
     }
